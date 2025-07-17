@@ -1,0 +1,188 @@
+/* Import trendy fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+/* Tailwind base styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global styles with Gen Z vibes */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #000;
+  color: white;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Custom scrollbar with neon effect */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #22c55e, #14b8a6);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #16a34a, #0d9488);
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.8);
+}
+
+/* Selection styling */
+::selection {
+  background: rgba(34, 197, 94, 0.3);
+  color: white;
+}
+
+::-moz-selection {
+  background: rgba(34, 197, 94, 0.3);
+  color: white;
+}
+
+/* Custom utility classes */
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-400 via-accent-400 to-primary-300 bg-clip-text text-transparent;
+  }
+  
+  .text-neon {
+    @apply text-accent-400;
+    text-shadow: 0 0 10px currentColor;
+  }
+  
+  .border-gradient {
+    border-image: linear-gradient(45deg, #22c55e, #14b8a6) 1;
+  }
+  
+  .bg-mesh {
+    background: linear-gradient(45deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  }
+  
+  .bg-cyber {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #1e293b 75%, #0f172a 100%);
+  }
+  
+  .glass-effect {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
+  
+  .neon-border {
+    @apply border border-accent-400/50;
+    box-shadow: 0 0 10px rgba(20, 184, 166, 0.3);
+  }
+  
+  .hover-glow {
+    transition: all 0.3s ease;
+  }
+  
+  .hover-glow:hover {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+    transform: translateY(-2px);
+  }
+  
+  .text-shimmer {
+    background: linear-gradient(90deg, #22c55e, #14b8a6, #22c55e);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: text-shimmer 2s ease-in-out infinite;
+  }
+}
+
+/* Custom components */
+@layer components {
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary-500 to-accent-500 text-black font-semibold py-3 px-8 rounded-full hover:shadow-glow-lg transition-all duration-300 hover:scale-105;
+  }
+  
+  .btn-secondary {
+    @apply border-2 border-accent-500/50 text-accent-400 font-semibold py-3 px-8 rounded-full transition-all duration-300 hover:bg-accent-500/10 hover:border-accent-400 backdrop-blur-sm hover-glow;
+  }
+  
+  .card-glass {
+    @apply glass-effect rounded-2xl p-6 hover-glow;
+  }
+  
+  .section-padding {
+    @apply py-20 px-6;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto relative z-10;
+  }
+}
+
+/* Smooth animations */
+* {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Focus styles */
+button:focus,
+a:focus,
+input:focus,
+textarea:focus {
+  outline: 2px solid #22c55e;
+  outline-offset: 2px;
+}
+
+/* Loading animation */
+@keyframes loading {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading {
+  animation: loading 1s linear infinite;
+}
+
+/* Glitch effect for fun */
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+.glitch:hover {
+  animation: glitch 0.3s ease-in-out;
+}
+
+/* Responsive typography */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1536px) {
+  html {
+    font-size: 18px;
+  }
+}
