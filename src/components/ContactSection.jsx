@@ -11,16 +11,25 @@ export default function ContactSection() {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setIsSubmitted(false);
+    
     // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 2000));
+    
     setIsSubmitting(false);
-    // Reset form
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    setIsSubmitted(true);
+    
+    // Reset form after showing success message
+    setTimeout(() => {
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setIsSubmitted(false);
+    }, 3000);
   };
 
   const handleChange = (e) => {
@@ -313,7 +322,8 @@ export default function ContactSection() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-black/50 border border-emerald-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition-all duration-300"
+                    disabled={isSubmitting}
+                    className="w-full px-4 py-3 bg-black/50 border border-emerald-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition-all duration-300 disabled:opacity-50"
                     placeholder="Your full name"
                   />
                 </div>
@@ -327,7 +337,8 @@ export default function ContactSection() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-black/50 border border-emerald-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition-all duration-300"
+                    disabled={isSubmitting}
+                    className="w-full px-4 py-3 bg-black/50 border border-emerald-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition-all duration-300 disabled:opacity-50"
                     placeholder="your.email@example.com"
                   />
                 </div>
@@ -343,7 +354,8 @@ export default function ContactSection() {
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-black/50 border border-emerald-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition-all duration-300"
+                  disabled={isSubmitting}
+                  className="w-full px-4 py-3 bg-black/50 border border-emerald-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition-all duration-300 disabled:opacity-50"
                   placeholder="What's this about?"
                 />
               </div>
@@ -358,17 +370,17 @@ export default function ContactSection() {
                   onChange={handleChange}
                   required
                   rows="6"
-                  className="w-full px-4 py-3 bg-black/50 border border-emerald-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition-all duration-300 resize-none"
+                  disabled={isSubmitting}
+                  className="w-full px-4 py-3 bg-black/50 border border-emerald-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition-all duration-300 resize-none disabled:opacity-50"
                   placeholder="Tell me about your project or just say hello..."
                 />
               </div>
               
               <motion.button
-                type="button"
+                type="submit"
                 disabled={isSubmitting}
-                onClick={handleSubmit}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: isSubmitting ? 1 : 1.05 }}
+                whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
                 className="w-full px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-lg relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-emerald-500/30 transition-all duration-300"
               >
                 <motion.div
@@ -405,8 +417,13 @@ export default function ContactSection() {
 
               {/* Success message */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: !isSubmitting && formData.name === '' ? 1 : 0, y: !isSubmitting && formData.name === '' ? 0 : 20 }}
+                initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                animate={{ 
+                  opacity: isSubmitted ? 1 : 0, 
+                  y: isSubmitted ? 0 : 20,
+                  scale: isSubmitted ? 1 : 0.9
+                }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
                 className="text-center p-4 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-lg"
               >
                 <p className="text-emerald-400 font-semibold">✅ Message sent successfully!</p>
