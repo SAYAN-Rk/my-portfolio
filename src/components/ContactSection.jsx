@@ -14,8 +14,7 @@ export default function ContactSection() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     setIsSubmitting(true);
     setIsSubmitted(false);
     
@@ -377,7 +376,8 @@ export default function ContactSection() {
               </div>
               
               <motion.button
-                type="submit"
+                type="button"
+                onClick={handleSubmit}
                 disabled={isSubmitting}
                 whileHover={{ scale: isSubmitting ? 1 : 1.05 }}
                 whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
